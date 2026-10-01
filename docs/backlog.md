@@ -17,7 +17,7 @@ Spikes are time-boxed research tasks. Their output is a document, not code.
 |---|---|---|---|
 | S0-1 | Youth housing data in Spain: rent-to-income ratio, emancipation, prices | `docs/research/housing.md` with sources | M |
 | S0-2 | Rental scam patterns (Police, INCIBE, OCU) | `docs/research/scams.md` → red flags | M |
-✅| S0-3 | APIs & data map: Idealista API, Cadastre, rental price index, INE, grants | `docs/research/apis.md` (access, limits, licence) | M |
+|✅ S0-3 | APIs & data map: Idealista API, Cadastre, rental price index, INE, grants | `docs/research/apis.md` (access, limits, licence) | M |
 | S0-4 | Identity provider: Keycloak vs Supabase Auth vs Spring Authorization Server | ADR-0002 | M |
 | S0-5 | Competitor benchmark (portals, finance apps) | Comparison table | S |
 | S0-6 | User personas & value proposition | `docs/personas.md` | S |
