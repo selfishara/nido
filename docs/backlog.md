@@ -17,7 +17,7 @@ Spikes are time-boxed research tasks. Their output is a document, not code.
 |---|---|---|---|
 | S0-1 | Youth housing data in Spain: rent-to-income ratio, emancipation, prices | `docs/research/housing.md` with sources | M |
 | S0-2 | Rental scam patterns (Police, INCIBE, OCU) | `docs/research/scams.md` → red flags | M |
-| S0-3 | APIs & data map: Idealista API, Cadastre, rental price index, INE, grants | `docs/research/apis.md` (access, limits, licence) | M |
+✅| S0-3 | APIs & data map: Idealista API, Cadastre, rental price index, INE, grants | `docs/research/apis.md` (access, limits, licence) | M |
 | S0-4 | Identity provider: Keycloak vs Supabase Auth vs Spring Authorization Server | ADR-0002 | M |
 | S0-5 | Competitor benchmark (portals, finance apps) | Comparison table | S |
 | S0-6 | User personas & value proposition | `docs/personas.md` | S |
@@ -48,13 +48,16 @@ Spikes are time-boxed research tasks. Their output is a document, not code.
 - **US-2.3** As a user, I want to see the **rent-to-income ratio** of a rent with a traffic light so that I decide with data.
   - AC: green < 30% · amber 30–40% · red > 40% (configurable thresholds)
 - **US-2.4** As a user, I want a savings goal (deposit, moving, furniture) with progress tracking.
+- **US-2.5** As a user, I want to see my monthly cash flow (income – expenses – rent) so that I know if I can afford the rent.
+- **US-2.6** As a user, I want to see the reference rent for my area next to my rent so that I know if the price is fair.
 
 ### EPIC-3 · Scam detector · P0
-- **US-3.1** As a user, I want to paste a listing and get a risk score with reasons.
+- **US-3.1** As a user, I want to paste the listing text or URL (no automatic import from portals) and get a risk score with reasons.
   - AC: JSON response validated against a schema · reasons explained · never presented as an absolute verdict
 - **US-3.2** As the system, I want deterministic rules (abnormal price, upfront payment, WhatsApp-only contact) that complement the AI.
 - **US-3.3** As a developer, I want the prompt protected against injection inside the listing (OWASP LLM01).
 - **US-3.4** As a developer, I want a test dataset of legit and scam listings so that I can measure precision and recall.
+- **US-3.5**  As a user, I want the listing's address checked against Catastro so that I can spot fake or inaccurate listings.
 
 ### EPIC-4 · Contract reviewer · P1
 - **US-4.1** As a user, I want to upload my lease PDF and see dubious clauses with a reference to the LAU article.
