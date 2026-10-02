@@ -53,7 +53,7 @@
 ## Impact on the backlog
 1. **US-3.1** changes to: *"paste listing text or URL"* (no automatic import from portals).
 2. **New story · US-3.5:** check the listing address against Catastro (exists? use? surface area?).
-3. **New story · US-2.5:** show the reference rent for the user's area next to their rent (start with Barcelona and Catalonia, using Incasòl data).
+3. **New story · US-2.6:** show the reference rent for the user's area next to their rent (start with Barcelona and Catalonia, using Incasòl data).
 4. **New chore:** a data import job for reference prices (quarterly), with the source and date stored on each record.
 5. **US-6.1:** model grants as **versioned rules**, quoting the BOE article.
 
