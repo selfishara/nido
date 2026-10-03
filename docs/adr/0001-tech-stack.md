@@ -7,15 +7,15 @@
 Nido must run on **mobile (Android/iOS) and web**, handle sensitive data and integrate AI. It's a solo project meant to grow in backend, AI and cybersecurity, building on previous experience with Spring Boot, hexagonal architecture and KMP.
 
 ## Decision
-| Layer | Choice | Why |
-|---|---|---|
-| Backend | Java 21 + Spring Boot 3, hexagonal architecture | Already practised at Belgem; mature security ecosystem (Spring Security) |
+| Layer | Choice                                                                | Why |
+|---|-----------------------------------------------------------------------|---|
+| Backend | Java 25 + Spring Boot 3, hexagonal architecture                       | Already practised at Belgem; mature security ecosystem (Spring Security) |
 | Client | Kotlin Multiplatform + Compose Multiplatform (Android, iOS, Web/Wasm) | One codebase for mobile and web; prior experience from GymSpot Lite |
-| Database | PostgreSQL + pgvector | Relational data and RAG embeddings in the same engine |
-| AI | Claude API (structured output, tool use) | Strong at legal-text analysis and reliable JSON |
-| Auth | OAuth2/OIDC + PKCE (IdP decided in ADR-0002) | Industry standard, and a learning goal |
-| Infra | Docker Compose + GitHub Actions | Reproducible, and what job offers ask for |
-| IDE | IntelliJ IDEA (backend) + Android Studio (KMP client) | Best-in-class tooling for each side |
+| Database | PostgreSQL + pgvector                                                 | Relational data and RAG embeddings in the same engine |
+| AI | Claude API (structured output, tool use)                              | Strong at legal-text analysis and reliable JSON |
+| Auth | OAuth2/OIDC + PKCE (IdP decided in ADR-0002)                          | Industry standard, and a learning goal |
+| Infra | Docker Compose + GitHub Actions                                       | Reproducible, and what job offers ask for |
+| IDE | IntelliJ IDEA (backend) + Android Studio (KMP client)                 | Best-in-class tooling for each side |
 
 ## Alternatives considered
 - **Flutter / React Native**: they don't reuse the Kotlin experience.
