@@ -2,7 +2,7 @@
 
 This document is the **source** of the backlog: each story becomes a GitHub issue in the Project.
 Story format: *As a [user], I want [action] so that [benefit]*, plus acceptance criteria (AC).
-Every story marked P0 or P1 gets a **spec** in [`specs/`](../specs) before any code is written.
+Every story marked P0 or P1 gets a **spec** in [`specs/`](specs) before any code is written.
 
 **Size:** XS (<1h) · S (2–3h) · M (half a day) · L (1–2 days) · XL (split it)
 **Priority:** P0 (MVP) · P1 (right after MVP) · P2 (later)
