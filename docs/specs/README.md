@@ -1,6 +1,6 @@
 # 📐 Specs
 
-Spec-Driven Development: no feature code without an approved spec. Theory → [learning note](../docs/learning/spec-driven-development.md).
+Spec-Driven Development: no feature code without an approved spec. Theory → [learning note](../learning/spec-driven-development.md).
 
 ```
 specs/

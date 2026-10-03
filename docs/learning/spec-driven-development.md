@@ -26,8 +26,8 @@ Spec (what & why) → Plan (how) → Tasks (steps) → Implement (tests first) �
 - **Plan ↔ ADR:** if the plan makes an important architectural decision, it gets its own ADR.
 
 ## Practice in Nido
-- Every P0/P1 story gets a folder in [`specs/`](../../specs): `NNN-feature-name/{spec,plan,tasks}.md`.
-- [`specs/constitution.md`](../../specs/constitution.md) holds the principles.
+- Every P0/P1 story gets a folder in [`specs/`](../specs): `NNN-feature-name/{spec,plan,tasks}.md`.
+- [`specs/constitution.md`](../specs/constitution.md) holds the principles.
 - Workflow per story: write the spec → review it (with Claude as a critic) → write the plan → split into tasks → TDD → PR that links the spec.
 - Later on: a custom Claude skill (`/spec`) that generates the skeleton and checks the spec against the constitution.
 

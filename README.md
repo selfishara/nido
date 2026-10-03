@@ -52,7 +52,7 @@ Nido handles sensitive data (payslips, IDs, contracts), so security is a central
 ## 🗂️ How it's built
 
 - **Methodology:** Scrum adapted for a solo developer · 2-week sprints
-- **Spec-Driven Development:** every feature starts as a spec → [`specs/`](specs)
+- **Spec-Driven Development:** every feature starts as a spec → [`specs/`](docs/specs)
 - **Backlog:** GitHub Projects ([setup guide](docs/github-projects-guide.md))
 - **Process log:** [process log](docs/process-log.md) with screenshots
 - **Learning notes:** theory + practice of every concept applied → [`docs/learning`](docs/learning)
@@ -71,7 +71,7 @@ Nido handles sensitive data (payslips, IDs, contracts), so security is a central
 
 - [Initial backlog & epics](docs/backlog.md)
 - [GitHub Projects guide](docs/github-projects-guide.md)
-- [Specs (SDD)](specs)
+- [Specs (SDD)](docs/specs)
 - [ADRs](docs/adr)
 - [Process log](docs/process-log.md)
 - [Learning notes](docs/learning)
