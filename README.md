@@ -1,9 +1,9 @@
 # 🏠 Nido — housing & money for young people
 
-> **Status:** 🟡 Sprint 0 · Discovery · *(working name)*
+> **Status:** 🟡 Sprint 1 · Walking skeleton · *(working name)*
 
 Nido helps young people **find a place to rent without getting scammed** and **understand and organise their money** so they can move out.
-**Mobile + web** app (Android · iOS · Web) built with Kotlin Multiplatform and a Spring Boot backend.
+**Mobile + web** app: Android app (Kotlin Multiplatform), Angular web client and a Spring Boot backend.
 
 ---
 
@@ -29,13 +29,21 @@ Moving out as a young person in Spain mixes two problems that feed each other:
 ## 🧱 Planned architecture
 
 ```
- Android ─┐
- iOS ─────┼── Compose Multiplatform (KMP) ──HTTPS + OAuth2/OIDC (PKCE)──▶ Spring Boot API (hexagonal)
- Web ─────┘                                                              │
-                                                                         ├── PostgreSQL + pgvector
-                                                                         ├── Claude API (AI)
-                                                                         └── Open data APIs
+ Android app (KMP · MVVM) ─┐
+                           ├──HTTPS + OAuth2/OIDC (PKCE)──▶ Spring Boot API (hexagonal)
+ Web (Angular)  ───────────┘                                │
+                                                            ├── PostgreSQL + pgvector
+                                                            ├── Claude API (AI, behind a port)
+                                                            └── Open data APIs
 ```
+
+| Part | Architecture | Layers |
+|---|---|---|
+| **Backend** | Hexagonal (ports & adapters), feature-first | `<module>/domain` · `application` · `infrastructure` |
+| **Android app** | MVVM + clean layers | `presentation` (Compose + ViewModel) · `domain` · `data` |
+| **Web** | Angular components + services | components · services · API client |
+
+Why two patterns? → [MVVM vs hexagonal](docs/learning/mvvm-vs-hexagonal.md).
 
 Architecture decisions live in [`docs/adr`](docs/adr).
 
@@ -63,7 +71,8 @@ Nido handles sensitive data (payslips, IDs, contracts), so security is a central
 | Tool | Used for |
 |---|---|
 | **IntelliJ IDEA** | Backend (Java · Spring Boot · Gradle · DB tools) |
-| **Android Studio** | KMP client, Android emulator |
+| **Android Studio** | KMP Android app, emulator |
+| **Node.js + Angular CLI** | Web client (planned) |
 | **Terminal** | Git, Docker, Gradle |
 | **VS Code** *(optional)* | Quick edits to Markdown/YAML |
 
