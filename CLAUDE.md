@@ -47,7 +47,7 @@ nido/
 │       │   ├── db/migration/       Flyway scripts: V1__description.sql …
 │       │   └── prompts/            (planned) versioned LLM prompts
 │       └── test/java/com/nido/backend/<module>/…   Mirrors main/ packages
-├── app/                            (planned) KMP Android app
+├── app/                            (planned) KMP Android app — MVVM
 ├── web/                            (planned) Angular client
 └── docs/
     ├── specs/constitution.md       Non-negotiable principles
@@ -93,6 +93,11 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 - `shared/` only for real cross-cutting code. No `utils` dumping ground.
 - AI code lives in the `ai` module behind a port (`LlmClient`). Business modules never call an LLM SDK directly. Prompts are versioned files in `src/main/resources/prompts/`.
 
+### Clients (planned)
+- **Android app (KMP): MVVM + clean layers.** `presentation/` (Compose screens + ViewModels exposing an immutable UI state via `StateFlow`), `domain/` (use cases, models), `data/` (repositories, Ktor API client). No business rules in ViewModels or screens: the backend is the source of truth for rules like the rent-ratio traffic light.
+- **Web (Angular):** standalone components + services; components render state (signals), services call the API. Same rule: no business logic duplicated in the client.
+- Background: `docs/learning/mvvm-vs-hexagonal.md`.
+
 ## Workflow (must follow)
 1. **Spec before code.** Every P0/P1 story has `docs/specs/NNN-name/{spec,plan,tasks}.md`. Read it and the constitution before coding. Unclear requirement → `[NEEDS CLARIFICATION]` and ask; never guess business rules.
 2. **TDD in the domain:** red → green → refactor. Each acceptance criterion (AC) maps to ≥1 test, named after it: `ac1_…`.
@@ -103,7 +108,7 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 
 ## Code style
 - **Formatting:** follow the existing style (Spring Initializr defaults: tabs in Java). **TBD:** adopt an automatic formatter (Spotless) in US-0.3; update this section then.
-- Java 25: `record` for immutable data (DTOs, value objects, results). `final` fields; constructor injection only (no field `@Autowired`).
+- Java 25: `record` for immutable data (DTOs, value objects, results, config); `class` for services, controllers and JPA entities. `private final` fields + constructor injection (no field `@Autowired`). See `docs/learning/record-vs-class.md`.
 - **Money = `BigDecimal`, never `double`/`float`.** Explicit `RoundingMode`. Avoid double rounding (multiply before dividing).
 - No magic numbers: named constants or `@ConfigurationProperties`.
 - Names: classes `PascalCase` nouns (`RentRatioCalculator`), use cases `VerbNounUseCase`, tests `<Class>Test`, test methods `acN_whatItChecks`.
@@ -150,7 +155,7 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 
 ## Current state (update every sprint)
 - **Sprint 1 · Walking skeleton.** Backend boots with Postgres ✅.
-- **In progress:** spec 001 / US-2.3 rent-to-income ratio (TDD in `money.domain`).
+- **In progress:** spec 001 / US-2.3 rent-to-income ratio (TDD in `money.domain`): T2 ✅ ratio · T3 ✅ traffic light · next T4.
 - **Next:** ADR-0002 package structure · CI (US-0.3) · ADR-0003 Angular web client · KMP Android app.
 - **Sprint 2:** spike S0-4 identity provider → ADR-0004 → OAuth2/OIDC login.
 - **ADR numbering:** 0001 tech stack · 0002 package structure · 0003 web client · 0004 identity provider.
