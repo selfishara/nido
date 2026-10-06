@@ -49,3 +49,7 @@ Repository → Ktor client ──HTTPS──▶ ◀── HttpClient ───�
 
 ## 🧠 My own words
 > *Why can't a Spring backend "be MVVM"? Where would a business rule like the rent-ratio traffic light live, and why not in the ViewModel?*
+- The ViewModel is a frontend concept: it holds the state of a screen and survives configuration changes. A Spring backend has no screens, so it has no ViewModels. The rent-ratio traffic light is a business rule, so it belongs in the domain layer of the hexagonal architecture.
+- There are two main reasons for this separation:
+  1. **Duplication**: Nido has two clients (Android and web). If the rule lived in the ViewModel, it would have to be duplicated in both clients. If it lives in the backend, it's implemented once and used by both clients.
+  2. **Security and trust**: Client lives on the user's device, so it can't be trusted with business rules that affect the system's integrity. The backend must enforce these rules in a secure and consistent manner.

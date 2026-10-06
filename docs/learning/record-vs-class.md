@@ -62,3 +62,10 @@ That's why records use immutable types inside (`BigDecimal`, `String`, `List.cop
 
 ## 🧠 My own words
 > *When would you use a record, a final class and a normal class? What does `final` NOT guarantee?*
+- record → when the object is just data, and two objects with the same values are the same thing (e.g. thresholds, DTOs, results).
+- final class → when the object has behaviour, but you don't want it to be extended (utility classes, value objects).
+- class → when the object has behaviour and identity matters (e.g. users, entities).
+- final does NOT guarantee immutability; it only prevents reassignment of the variable or overriding of methods. The object itself can still be mutable if it contains mutable fields. 
+- Final classes can not be extended/inherited from.
+- Don't make Spring service classes `final`: Spring creates proxies (runtime subclasses) for features like `@Transactional`.
+  
