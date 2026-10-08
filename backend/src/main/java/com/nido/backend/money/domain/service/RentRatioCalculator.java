@@ -1,5 +1,7 @@
 package com.nido.backend.money.domain.service;
 
+import com.nido.backend.money.domain.model.EffortLevel;
+import com.nido.backend.money.domain.model.EffortThresholds;
 import com.nido.backend.money.domain.model.RentRatio;
 
 import java.math.BigDecimal;
@@ -17,10 +19,16 @@ public class RentRatioCalculator {
     public RentRatio calculate(BigDecimal netMonthlyIncome, BigDecimal rentShare) {
         // Multiply first, then divide once: a single rounding step.
         // Dividing first and rounding twice can turn 29.949…% into 30.0% (wrong traffic light).
-        BigDecimal percentage = rentShare
-                .multiply(ONE_HUNDRED)
-                .divide(netMonthlyIncome, PERCENTAGE_SCALE, RoundingMode.HALF_UP);
 
-        return new RentRatio(percentage);
+        //percentage
+        BigDecimal percentage = rentShare.multiply(ONE_HUNDRED).divide(netMonthlyIncome, PERCENTAGE_SCALE, RoundingMode.HALF_UP);
+
+        //level
+        EffortLevel level = EffortThresholds.DEFAULT.classify(percentage);
+
+        //rentExceedsIncome
+        boolean rentExceedsIncome = rentShare.compareTo(netMonthlyIncome) > 0;
+
+        return new RentRatio(percentage, level, rentExceedsIncome);
     }
 }

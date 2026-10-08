@@ -32,4 +32,14 @@ class RentRatioCalculatorTest {
     void ac2_classifiesPercentageIntoTrafficLight(String percentage, EffortLevel expected) {
         assertThat(EffortThresholds.DEFAULT.classify(new BigDecimal(percentage))).isEqualTo(expected);
     }
+
+
+    @Test
+    void ac3_rentAboveIncome_isRedWithFlag(){
+        RentRatio result = calculator.calculate(new BigDecimal("1000.00"), new BigDecimal("1500.00"));
+
+        assertThat(result.level()).isEqualTo(EffortLevel.RED);
+        assertThat(result.rentExceedsIncome()).isTrue();
+        assertThat(result.percentage()).isEqualByComparingTo("150.0");
+    }
 }

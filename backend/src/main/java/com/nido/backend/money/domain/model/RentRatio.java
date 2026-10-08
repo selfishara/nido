@@ -1,23 +1,13 @@
 package com.nido.backend.money.domain.model;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 /**
  * Result of the rent-to-income calculation (spec 001).
  *
  * @param percentage share of the net monthly income taken by the rent, e.g. 30.0
+ * @param level      traffic light for the rent-to-income ratio (spec 001, AC2)
+ * @param rentExceedsIncome true if the rent exceeds the net monthly income (spec 001, R2)
  */
-public record RentRatio (BigDecimal percentage){
-    private static final BigDecimal ONE_HUNDRED = BigDecimal.valueOf(100);
-    private static final int PERCENTAGE_SCALE = 1;
-    public RentRatio calculate(BigDecimal netMonthlyIncome, BigDecimal rentShare) {
-        // Multiply first, then divide once: a single rounding step.
-        // Dividing first and rounding twice can turn 29.949…% into 30.0% (wrong traffic light).
-        BigDecimal percentage = rentShare
-                .multiply(ONE_HUNDRED)
-                .divide(netMonthlyIncome, PERCENTAGE_SCALE, RoundingMode.HALF_UP);
+public record RentRatio (BigDecimal percentage, EffortLevel level, boolean rentExceedsIncome){
 
-        return new RentRatio(percentage);
-    }
 }
