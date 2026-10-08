@@ -46,7 +46,7 @@ class RentRatioCalculatorTest {
     @ParameterizedTest(name = "{0} / {1} -> {2}% {3}")
     @CsvSource({
             "1500.00, 449.40, 30.0, AMBER",
-            "10000.00, 2992.96, 29.9, GREEN"
+            "10000.00, 2994.96, 29.9, GREEN"
     })
     void r2_classifiesTheRoundedPercentage(String income, String rent, String expectedPercentage, EffortLevel expectedLevel){
         RentRatio result = calculator.calculate(new BigDecimal(income), new BigDecimal(rent));
