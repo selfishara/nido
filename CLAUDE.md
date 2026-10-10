@@ -5,6 +5,8 @@ Context for AI assistants (Claude Code and others) working on **Nido**. Read thi
 ## What Nido is
 A mobile + web app that helps young people in Spain **rent a flat without getting scammed** and **understand their money** (rent-to-income ratio, savings, payslips). Solo portfolio project by Sara (backend dev), built like a professional team project: Scrum, Spec-Driven Development, TDD, ADRs, reviewed PRs.
 
+Nido is also Sara's **final project for the AI Dev Tools Zoomcamp 2026** (target deadline 2026-11-16). Requirements, scoring and status: [`docs/course-ai-dev-tools.md`](docs/course-ai-dev-tools.md). When planning work, prefer tasks that close a gap in that table.
+
 ## Working with Sara (read this)
 - **This is a learning project.** Explain the *why* behind every non-trivial change, and name the concept (pattern, principle, security issue) so she can look it up.
 - **Sara runs git herself.** Don't commit, push, merge or create branches unless she explicitly asks. Suggest the commands instead.
@@ -99,6 +101,7 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 - Background: `docs/learning/mvvm-vs-hexagonal.md`.
 
 ## Workflow (must follow)
+0. Follow [`docs/process.md`](docs/process.md) (PM → Engineer → QA loop, PASS/FAIL) and the limits in [`docs/permissions.md`](docs/permissions.md).
 1. **Spec before code.** Every P0/P1 story has `docs/specs/NNN-name/{spec,plan,tasks}.md`. Read it and the constitution before coding. Unclear requirement → `[NEEDS CLARIFICATION]` and ask; never guess business rules.
 2. **TDD in the domain:** red → green → refactor. Each acceptance criterion (AC) maps to ≥1 test, named after it: `ac1_…`.
 3. **One topic per branch and PR.** Branches: `feat/US-x.y-name`, `fix/…`, `docs/…`, `spike/S0-x-…`, `chore/…`. Branch from an up-to-date `main`.
@@ -152,6 +155,11 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 | `security-reviewer` | OWASP Top 10 + OWASP LLM Top 10, secrets, PII, privacy |
 | `spec-checker` | Checks that every acceptance criterion of a spec has tests and code |
 | `researcher` | Spike research with primary sources → `docs/research/` format |
+
+**Hooks** (`.claude/settings.json` + `.claude/hooks/`):
+| Hook | What it enforces |
+|---|---|
+| `block-git-writes.sh` (PreToolUse) | Blocks git commands that change history or branches, and any access to `.env` files |
 
 ## Current state (update every sprint)
 - **Sprint 1 · Walking skeleton.** Backend boots with Postgres ✅.
