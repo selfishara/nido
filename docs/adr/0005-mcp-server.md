@@ -35,6 +35,9 @@ The three tools are read-only: they only traverse `docs/specs/` and read `.md` f
 No write access, no network calls, no Spring Security needed (process boundary is the
 security boundary for stdio).
 
+- **Input validation:** `id` must match a strict pattern (e.g. `^US-\d+\.\d+$` or `^\d{3}$`); anything else is rejected.
+- **Path confinement:** resolve the path, `normalize()` it and check it `startsWith()` the configured docs root before reading. Covered by tests (`../`, absolute paths, encoded separators).
+
 ## Alternatives considered
 
 - **Python + FastMCP (as in the course):** No new language in the repo; the course uses Python
