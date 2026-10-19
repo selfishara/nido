@@ -4,3 +4,4 @@ build/
 out/
 .gradle/
 .env
+.claude/settings.local.json
