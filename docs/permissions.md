@@ -36,4 +36,4 @@ List every MCP server the agents can use here, with its permissions.
 | `nido-docs` (ADR-0005) | **Read-only.** Tools: `list_specs`, `get_story(id)`, `get_constitution`. Reads `docs/` via `java.nio.file`; no network, no writes, no auth data. Process boundary (stdio) is the security boundary. | In progress — `mcp-server/` module |
 
 Tools exposed: `list_specs`, `get_story(id)`, `get_constitution`.
-Why it is safe: it only reads public project documentation that agents can already read with `Read`; it never writes, executes commands or reaches the network.
+Why it is safe: it only reads public project documentation that agents can already read with `Read`; it never writes, executes commands or reaches the network. Also, it validates and confines the path.
