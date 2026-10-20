@@ -21,25 +21,29 @@ Stack constraints: Java 25, Gradle 9.7.x, Spring Boot 4.1.x already in use.
 
 ## Decision
 
-Build the MCP server as a **separate Gradle subproject** (`mcp-server/`) using:
+Build `mcp-server/` as a **second independent Gradle build** — its own `settings.gradle.kts`
+and `gradlew`, separate from `backend/`. There is no root `settings.gradle.kts`; both modules
+are self-contained. (A multi-project root would change how `backend/` is launched, which is a
+separate decision.) Using:
 
 | Piece | Choice |
 |---|---|
-| Framework | Spring AI 2.0.1 (GA, released 2026-08-21) |
+| Framework | [Spring AI 2.0.1](https://spring.io/blog/2026/08/21/spring-ai-2-0-1-available-now/) (GA, released 2026-08-21) |
 | Starter | `org.springframework.ai:spring-ai-starter-mcp-server` (BOM `spring-ai-bom:2.0.1`) |
 | Transport | stdio (`spring.ai.mcp.server.stdio=true`) |
 | Tools | Plain `@Tool`-annotated methods reading `docs/` via `java.nio.file` |
 | Wiring | `.mcp.json` at repo root pointing to the assembled JAR |
 
-The three tools are read-only: they only traverse `docs/specs/` and read `.md` files.
-No write access, no network calls, no Spring Security needed (process boundary is the
-security boundary for stdio).
+The three tools are read-only — no write access, no network calls, no Spring Security needed
+(process boundary is the security boundary for stdio):
+- `list_specs`: lists directories under `docs/specs/`.
+- `get_constitution`: reads `docs/specs/constitution.md`.
+- `get_story(id)`: reads `docs/backlog.md` and returns the matching story block by ID.
 
 ## Alternatives considered
 
-- **Python + FastMCP (as in the course):** No new language in the repo; the course uses Python
-  as a teaching example, not as a requirement. Keeping everything in Java avoids a second
-  toolchain and runtime in CI.
+- **Python + FastMCP (as in the course):** Rejected: it would add a second language and
+  toolchain to the repo; the course uses Python as an example, not a requirement.
 - **Java MCP SDK without Spring (`io.modelcontextprotocol.sdk:mcp`):** Lower-level; more
   boilerplate for tool registration and JSON serialisation. Spring AI's `@Tool` annotation
   and auto-configuration give the same result with significantly less code, and the BOM
@@ -56,3 +60,5 @@ security boundary for stdio).
 - ➖ Adds Spring AI BOM to the dependency graph; introduces an extra fat JAR artefact.
 - ➖ `mcp-server/` must be kept in sync with `docs/` path conventions (if specs move, the
   tools break). Mitigate: paths configured via `@ConfigurationProperties`, not hardcoded.
+- ➖ `.mcp.json` points to `mcp-server/build/libs/*.jar` (gitignored); the server must be
+  built with `./gradlew bootJar` before Claude Desktop / Claude Code can start it.

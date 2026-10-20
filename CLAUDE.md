@@ -39,7 +39,7 @@ nido/
 ├── .claude/
 │   ├── skills/<name>/SKILL.md      Project skills (see "AI tooling")
 │   └── agents/<name>.md            Project subagents
-├── mcp-server/                         MCP server (Spring AI 2.0, stdio) — list_specs / get_story / get_constitution
+├── mcp-server/                     MCP server (Spring AI 2.0, stdio) — list_specs / get_story / get_constitution
 ├── backend/
 │   ├── build.gradle.kts            Dependencies & toolchain
 │   └── src/
@@ -165,7 +165,7 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 
 ## Current state (update every sprint)
 - **Sprint 1 · Walking skeleton.** Backend boots with Postgres ✅.
-- **In progress:** spec 001 / US-2.3 rent-to-income ratio (TDD in `money.domain`): T2 ✅ ratio · T3 ✅ traffic light · next T4.
+- **In progress:** spec 001 / US-2.3 rent-to-income ratio (TDD in `money.domain`): T2 ✅ ratio · T3 ✅ traffic light · T4 ✅ · T5 in progress (healthy max rent).
 - **Next:** ADR-0002 package structure · CI (US-0.3) · ADR-0003 Angular web client · KMP Android app.
 - **Sprint 2:** spike S0-4 identity provider → ADR-0004 → OAuth2/OIDC login.
 - **ADR numbering:** 0001 tech stack · 0002 package structure · 0003 web client · 0004 identity provider · 0005 MCP server.
