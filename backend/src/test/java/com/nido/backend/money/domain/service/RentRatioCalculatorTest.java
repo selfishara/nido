@@ -1,5 +1,6 @@
 package com.nido.backend.money.domain.service;
 
+import com.nido.backend.money.domain.exception.InvalidAmountException;
 import com.nido.backend.money.domain.model.EffortLevel;
 import com.nido.backend.money.domain.model.EffortThresholds;
 import com.nido.backend.money.domain.model.RentRatio;
@@ -10,6 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RentRatioCalculatorTest {
 
@@ -66,5 +68,34 @@ class RentRatioCalculatorTest {
                 new BigDecimal(income),new BigDecimal("500.00"));
 
         assertThat(result.healthyMaxRent()).isEqualByComparingTo(expectedMaxRent);
+    }
+
+    @ParameterizedTest(name = "income {0}, rent {1} -> rejected")
+    @CsvSource(nullValues = "null", value = {
+            "null, 450.00",          // missing income
+            "1500.00, null",         // missing rent
+            "0, 450.00",             // zero income (would divide by zero!)
+            "1500.00, 0",            // zero rent
+            "-1500.00, 450.00",      // negative income
+            "1500.00, -450.00",      // negative rent
+            "1500.555, 450.00",      // 3 decimals
+            "1500.00, 450.555",      // 3 decimals
+            "1000000.01, 450.00",    // above the maximum
+            "1500.00, 1000000.01"    // above the maximum
+    })
+    void ac5_rejectsInvalidAmounts(String income, String rent){
+        assertThatThrownBy(() -> calculator.calculate(toAmount(income), toAmount(rent)))
+                .isInstanceOf(InvalidAmountException.class);
+    }
+
+    @Test
+    void ac5_acceptsTheMaximumAmount() {
+        RentRatio result = calculator.calculate(new BigDecimal("1000000.00"), new BigDecimal("1000000.00"));
+
+        assertThat(result.percentage()).isEqualByComparingTo("100.0");
+    }
+
+    private static BigDecimal toAmount(String value) {
+        return value == null ? null : new BigDecimal(value);
     }
 }
