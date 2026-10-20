@@ -31,11 +31,8 @@ public class RentRatioCalculator {
         // Dividing first and rounding twice can turn 29.949…% into 30.0% (wrong traffic light).
 
         BigDecimal percentage = percentageOf(netMonthlyIncome, rentShare);
-
         EffortLevel level = thresholds.classify(percentage);
-
         boolean rentExceedsIncome = rentShare.compareTo(netMonthlyIncome) > 0;
-
         BigDecimal healthyMaxRent = healthyMaxRent(netMonthlyIncome);
 
         return new RentRatio(percentage, level, rentExceedsIncome, healthyMaxRent);
@@ -63,20 +60,17 @@ public class RentRatioCalculator {
                 .divide(netMonthlyIncome, PERCENTAGE_SCALE, RoundingMode.HALF_UP);
     }
 
+    /** Domain invariants for any amount (spec 001, AC5). Messages name the field, never the value. */
     private static void requireValidAmount(BigDecimal amount, String field) {
-        // 1. null            → throw new InvalidAmountException(field + " is required");
         if (amount == null) {
             throw new InvalidAmountException(field + " is required");
         }
-        // 2. zero o negativo → "... must be greater than 0"
         if (amount.signum() <= 0) {
             throw new InvalidAmountException(field + " must be greater than 0");
         }
-        // 3. > 2 decimales   → "... must have at most 2 decimals"
         if (amount.stripTrailingZeros().scale() > MAX_DECIMALS) {
             throw new InvalidAmountException(field + " must have at most 2 decimals");
         }
-        // 4. > 1.000.000     → "... must not exceed 1000000"
         if (amount.compareTo(MAX_AMOUNT) > 0) {
             throw new InvalidAmountException(field + " must not exceed " + MAX_AMOUNT.toPlainString());
         }

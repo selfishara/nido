@@ -12,7 +12,6 @@ public record EffortThresholds(BigDecimal amberFrom, BigDecimal redAbove) {
     public static final EffortThresholds DEFAULT =
             new EffortThresholds(new BigDecimal("30"), new BigDecimal("40"));
 
-
     public EffortLevel classify(BigDecimal percentage) {
         if (percentage.compareTo(amberFrom) < 0) {
             return EffortLevel.GREEN;
