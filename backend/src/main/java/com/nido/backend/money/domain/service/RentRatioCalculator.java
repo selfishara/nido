@@ -27,9 +27,6 @@ public class RentRatioCalculator {
         requireValidAmount(netMonthlyIncome, "netMonthlyIncome");
         requireValidAmount(rentShare, "rentShare");
 
-        // Multiply first, then divide once: a single rounding step.
-        // Dividing first and rounding twice can turn 29.949…% into 30.0% (wrong traffic light).
-
         BigDecimal percentage = percentageOf(netMonthlyIncome, rentShare);
         EffortLevel level = thresholds.classify(percentage);
         boolean rentExceedsIncome = rentShare.compareTo(netMonthlyIncome) > 0;
