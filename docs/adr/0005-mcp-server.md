@@ -40,6 +40,9 @@ The three tools are read-only — no write access, no network calls, no Spring S
 - `get_constitution`: reads `docs/specs/constitution.md`.
 - `get_story(id)`: reads `docs/backlog.md` and returns the matching story block by ID.
 
+- **Input validation:** `id` must match a strict pattern (e.g. `^US-\d+\.\d+$` or `^\d{3}$`); anything else is rejected.
+- **Path confinement:** resolve the path, `normalize()` it and check it `startsWith()` the configured docs root before reading. Covered by tests (`../`, absolute paths, encoded separators).
+
 ## Alternatives considered
 
 - **Python + FastMCP (as in the course):** Rejected: it would add a second language and
@@ -62,3 +65,4 @@ The three tools are read-only — no write access, no network calls, no Spring S
   tools break). Mitigate: paths configured via `@ConfigurationProperties`, not hardcoded.
 - ➖ `.mcp.json` points to `mcp-server/build/libs/*.jar` (gitignored); the server must be
   built with `./gradlew bootJar` before Claude Desktop / Claude Code can start it.
+
