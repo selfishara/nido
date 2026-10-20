@@ -54,4 +54,17 @@ class RentRatioCalculatorTest {
         assertThat(result.percentage()).isEqualByComparingTo(expectedPercentage);
         assertThat(result.level()).isEqualTo(expectedLevel);
     }
+
+    @ParameterizedTest(name = "income {0} -> healthy max rent {1}")
+    @CsvSource({
+            "1500.00, 449",
+            "1000.00, 299",
+            "2000.00, 598" // trap: 599 / 2000 = 29.95% -> rounds to 30.0 -> AMBER
+    })
+    void ac4_returnsHealthyMaxRent(String income, String expectedMaxRent){
+        RentRatio result = calculator.calculate(
+                new BigDecimal(income),new BigDecimal("500.00"));
+
+        assertThat(result.healthyMaxRent()).isEqualByComparingTo(expectedMaxRent);
+    }
 }
