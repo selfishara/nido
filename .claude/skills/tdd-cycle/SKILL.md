@@ -26,3 +26,4 @@ Sara is learning. **Guide, don't do it for her**, unless she explicitly asks for
 - Domain tests: JUnit 5 + AssertJ, no Spring context.
 - One task at a time. If a task turns out too big, propose splitting it.
 - If the spec is wrong or ambiguous, stop and propose a spec change first.
+- If the previous task left gaps, list them and fix them first as a separate step with its own commit, before starting the requested task.
