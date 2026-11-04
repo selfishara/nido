@@ -131,6 +131,7 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 - **AI is advisory:** never a legal or financial verdict. Scam detection = risk indicators with reasons.
 - **Fairness:** language quality, names or nationality are never scam signals.
 - Pin versions of images and dependencies (no `:latest`).
+- **Jackson:** never enable default typing (`activateDefaultTyping`), never use `@JsonTypeInfo(use = Id.CLASS / MINIMAL_CLASS)` on input DTOs, and never use `GenericJackson2JsonRedisSerializer` with default typing. Ref: CVE-2026-110879, `docs/research/dependency-cves-2026-11.md`.
 
 ## Don'ts
 - ❌ Don't add frameworks, modules or dependencies a story doesn't need.
@@ -169,5 +170,3 @@ git push -u origin <branch>                 # then open a PR; don't merge before
 - **Next:** ADR-0002 package structure · CI (US-0.3) · ADR-0003 Angular web client · KMP Android app.
 - **Sprint 2:** spike S0-4 identity provider → ADR-0004 → OAuth2/OIDC login.
 - **ADR numbering:** 0001 tech stack · 0002 package structure · 0003 web client · 0004 identity provider · 0005 MCP server.
-
-- **Jackson:** never enable default typing (`activateDefaultTyping`), never use `@JsonTypeInfo(use = Id.CLASS / MINIMAL_CLASS)` on input DTOs, and never use `GenericJackson2JsonRedisSerializer` with default typing. Ref: CVE-2026-110879, `docs/research/dependency-cves-2026-11.md`.
