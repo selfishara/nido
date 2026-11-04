@@ -34,16 +34,29 @@ class RentRatioControllerTest {
     }
 
     @Test
-    void ac5_returns400ProblemDetailForInvalidAmount() throws Exception {
+    void ac5_returns400WithFieldErrorForInvalidAmount() throws Exception {
         mockMvc.perform(post("/api/v1/money/rent-ratio")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 { "netMonthlyIncome": 1500.00, "rentShare": 0 }
                                 """))
                 .andExpect(status().isBadRequest())
+
                 .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.detail").value("rentShare must be greater than 0"))
+                .andExpect(jsonPath("$.errors.rentShare").value("must be greater than 0"))
                 .andExpect(jsonPath("$.percentage").doesNotExist());
+    }
+    @Test
+    void ac5_reportsEveryInvalidFieldAtOnce() throws Exception {
+        mockMvc.perform(post("/api/v1/money/rent-ratio")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                { "netMonthlyIncome": 0, "rentShare": -5 }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.errors.netMonthlyIncome").exists())
+                .andExpect(jsonPath("$.errors.rentShare").exists());
     }
 }
